@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class PelangganController extends Controller
 {
-    /**
-     * Tampilkan dashboard / daftar pelanggan.
-     */
+    
     public function index()
     {
         $pelanggans = Pelanggan::latest()->paginate(10);
@@ -17,17 +15,13 @@ class PelangganController extends Controller
         return view('pelanggan.index', compact('pelanggans'));
     }
 
-    /**
-     * Tampilkan form tambah pelanggan.
-     */
+    
     public function create()
     {
         return view('pelanggan.create');
     }
 
-    /**
-     * Simpan data pelanggan baru.
-     */
+    
     public function store(Request $request)
     {
         $data = $request->validate([
