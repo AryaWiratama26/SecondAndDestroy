@@ -28,11 +28,11 @@
             <form action="{{ route('pelanggan.store') }}" method="POST">
                 @csrf
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label class="form-label">Nama</label>
                         <input type="text" name="nama" class="form-control" value="{{ old('nama') }}" required>
                     </div>
-                    <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="col-12 col-md-6">
                         <label class="form-label">No. WA</label>
                         <input type="text" name="wa" class="form-control" value="{{ old('wa') }}" required placeholder="contoh: 0812xxxxxxxx">
                     </div>
@@ -44,19 +44,19 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label class="form-label">Jenis Barang</label>
                         <input type="text" name="jenis_barang" class="form-control" value="{{ old('jenis_barang') }}" required>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6">
                         <label class="form-label">Total Belanja (Rp)</label>
                         <input type="number" name="total_belanja" class="form-control" value="{{ old('total_belanja') }}" min="0" step="1000" required>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between">
-                    <a href="{{ route('pelanggan.index') }}" class="btn btn-outline-secondary rounded-pill px-4">Kembali</a>
-                    <button type="submit" class="btn sd-btn-primary px-4">Simpan</button>
+                <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                    <a href="{{ route('pelanggan.index') }}" class="btn btn-outline-secondary rounded-pill px-4 order-2 order-md-1">Kembali</a>
+                    <button type="submit" class="btn sd-btn-primary px-4 order-1 order-md-2">Simpan</button>
                 </div>
             </form>
         </div>

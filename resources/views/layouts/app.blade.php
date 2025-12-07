@@ -37,7 +37,13 @@
         }
 
         .sd-shell {
-            padding: 1.5rem 0 3rem;
+            padding: 1rem 0 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .sd-shell {
+                padding: 1.5rem 0 3rem;
+            }
         }
 
         .sd-card {
@@ -109,6 +115,72 @@
         .sd-subtle {
             color: #5f6368;
             font-size: 0.8rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 767.98px) {
+            .sd-nav .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .sd-brand {
+                font-size: 0.85rem;
+            }
+
+            .sd-pill {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+            }
+
+            .sd-nav small {
+                display: none;
+            }
+
+            .sd-nav .d-flex.align-items-center.ms-auto {
+                flex-direction: column;
+                align-items: flex-end !important;
+                gap: 0.25rem !important;
+            }
+
+            .sd-nav .text-white-50 {
+                font-size: 0.7rem !important;
+                margin-right: 0 !important;
+            }
+
+            .sd-nav .btn-sm {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.75rem;
+            }
+
+            .container.sd-shell {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        .btn-outline-success {
+            border-color: #34a853;
+            color: #34a853;
+            font-weight: 500;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #34a853;
+            color: #ffffff;
+            border-color: #34a853;
+        }
+
+        .btn-outline-secondary {
+            border-color: #dadce0;
+            color: #5f6368;
+            font-weight: 500;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #f1f3f4;
+            color: #202124;
+            border-color: #dadce0;
         }
     </style>
 </head>
