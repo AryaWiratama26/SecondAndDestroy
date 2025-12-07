@@ -18,4 +18,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PelangganController::class, 'index'])->name('dashboard');
 
     Route::resource('pelanggan', PelangganController::class)->except(['show']);
+    Route::get('/pelanggan/export/pdf', [PelangganController::class, 'exportPdf'])->name('pelanggan.export.pdf');
 });

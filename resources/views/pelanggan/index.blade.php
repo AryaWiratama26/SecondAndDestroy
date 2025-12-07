@@ -14,6 +14,9 @@
             </div>
         </div>
         <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="{{ route('pelanggan.export.pdf') }}" class="btn btn-outline-secondary me-2" target="_blank">
+                📄 Cetak PDF
+            </a>
             <a href="{{ route('pelanggan.create') }}" class="btn sd-btn-primary px-4">
                 + Tambah Pelanggan
             </a>

@@ -19,7 +19,10 @@ class Pelanggan extends Model
         'total_belanja',
     ];
 
-    
+    /**
+     * Casts to automatically encrypt / decrypt certain attributes.
+     * Laravel uses AES-256-CBC under the hood.
+     */
     protected function casts(): array
     {
         return [
