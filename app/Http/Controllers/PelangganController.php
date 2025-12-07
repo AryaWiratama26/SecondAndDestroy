@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
+use App\Exports\PelangganExport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PelangganController extends Controller
 {
@@ -96,6 +98,16 @@ class PelangganController extends Controller
         ]);
 
         return $pdf->download('dashboard-pelanggan-second-and-destroy-' . date('Y-m-d') . '.pdf');
+    }
+
+    /**
+     * Export dashboard pelanggan ke Excel.
+     */
+    public function exportExcel()
+    {
+        $filename = 'dashboard-pelanggan-second-and-destroy-' . date('Y-m-d') . '.xlsx';
+        
+        return Excel::download(new PelangganExport, $filename);
     }
 }
 

@@ -19,4 +19,5 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('pelanggan', PelangganController::class)->except(['show']);
     Route::get('/pelanggan/export/pdf', [PelangganController::class, 'exportPdf'])->name('pelanggan.export.pdf');
+    Route::get('/pelanggan/export/excel', [PelangganController::class, 'exportExcel'])->name('pelanggan.export.excel');
 });

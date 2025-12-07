@@ -23,6 +23,24 @@
             padding-inline: 1.25rem;
         }
 
+        @media (max-width: 575.98px) {
+            .sd-login-shell {
+                padding-inline: 1rem;
+            }
+
+            .sd-login-card .card-body {
+                padding: 1.5rem !important;
+            }
+
+            .sd-login-title {
+                font-size: 1.1rem;
+            }
+
+            .sd-login-sub {
+                font-size: 0.8rem;
+            }
+        }
+
         .sd-login-card {
             border-radius: 12px;
             border: 1px solid #e4e7eb;
