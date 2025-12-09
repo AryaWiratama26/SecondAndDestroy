@@ -10,7 +10,7 @@
             min-height: 100vh;
             background-color: #ffffff;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            color: #202124;
+            color: #1f2933;
         }
 
         .sd-nav {
@@ -113,7 +113,7 @@
         }
 
         .sd-subtle {
-            color: #5f6368;
+            color: #56606b;
             font-size: 0.8rem;
         }
 
@@ -182,6 +182,156 @@
             color: #202124;
             border-color: #dadce0;
         }
+
+        /* Dark mode */
+        body.dark-mode {
+            background-color: #0b1222;
+            color: #f8fafc !important;
+        }
+
+        body.dark-mode .sd-nav {
+            background-color: #0b1222;
+            border-bottom-color: #1f2937;
+            color: #f8fafc !important;
+        }
+
+        body.dark-mode .sd-brand,
+        body.dark-mode .sd-pill,
+        body.dark-mode .navbar-brand,
+        body.dark-mode .sd-subtle {
+            color: #f8fafc;
+        }
+
+        body.dark-mode .sd-pill {
+            background-color: #1e293b;
+        }
+
+        body.dark-mode .sd-card,
+        body.dark-mode .sd-card-header {
+            background-color: #111827;
+            border-color: #1f2937;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        }
+
+        body.dark-mode .sd-table th {
+            background-color: #1e293b;
+            color: #f8fafc !important;
+            border-bottom-color: #1f2937;
+            font-weight: 600;
+        }
+
+        body.dark-mode .sd-table td {
+            color: #1e293b  !important;
+            border-color: #1f2937;
+            font-weight: 500;
+        }
+
+        body.dark-mode .sd-table tr {
+            background-color: #152033;
+        }
+
+        body.dark-mode .sd-table tr:nth-child(even) {
+            background-color: #1a2538;
+        }
+
+
+
+        body.dark-mode .sd-badge-soft {
+            background-color: #1e293b;
+            color: #e0f2fe;
+        }
+
+        body.dark-mode .sd-btn-primary {
+            background-color: #2563eb;
+        }
+
+        body.dark-mode .sd-btn-ghost {
+            background-color: #111827;
+            border-color: #1f2937;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .btn-outline-secondary {
+            border-color: #475569;
+            color: #f8fafc;
+            background-color: #111827;
+        }
+
+        body.dark-mode .btn-outline-secondary:hover {
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+
+        body.dark-mode .sd-alert {
+            background-color: #052e16;
+            border-color: #14532d;
+            color: #bbf7d0;
+        }
+
+        /* Text utilities in dark mode */
+        body.dark-mode .text-muted,
+        body.dark-mode .form-label,
+        body.dark-mode small,
+        body.dark-mode label {
+            color: #e5e7eb !important;
+        }
+
+        /* Inputs/selects */
+        body.dark-mode .form-control,
+        body.dark-mode .form-select {
+            background-color: #111827;
+            border-color: #1f2937;
+            color: #f8fafc;
+        }
+
+        body.dark-mode .form-control::placeholder,
+        body.dark-mode .form-select::placeholder {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .form-control:focus,
+        body.dark-mode .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.35);
+            background-color: #0f172a;
+            color: #ffffff;
+        }
+
+        /* Dark mode: pastikan kolom Alamat (kolom ke-4) terbaca di tabel putih */
+        body.dark-mode .sd-table tbody tr td:nth-child(4) {
+            color: #111827 !important;
+            font-weight: 600;
+        }
+
+        body.dark-mode .sd-table tbody tr td:nth-child(4) .text-muted {
+            color: #111827 !important;
+            opacity: 1 !important;
+            font-weight: 600;
+        }
+
+        /* Toggle */
+        .theme-toggle {
+            border: 1px solid #dadce0;
+            border-radius: 999px;
+            padding: 0.3rem 0.9rem;
+            background: #ffffff;
+            color: #202124;
+            font-size: 0.85rem;
+        }
+
+        .theme-toggle:hover {
+            background: #f1f3f4;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #111827;
+            border-color: #1f2937;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: #1f2937;
+        }
     </style>
 </head>
 <body>
@@ -201,6 +351,7 @@
 
         @auth
             <div class="d-flex align-items-center ms-auto gap-2">
+                <button type="button" class="theme-toggle" id="themeToggle">Dark</button>
                 <span class="text-white-50 me-2" style="font-size: 0.8rem;">
                     {{ auth()->user()->name }}
                 </span>
@@ -226,6 +377,34 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function() {
+        const toggleBtn = document.getElementById('themeToggle');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const stored = localStorage.getItem('sd-theme');
+
+        function applyTheme(mode) {
+            if (mode === 'dark') {
+                document.body.classList.add('dark-mode');
+                if (toggleBtn) toggleBtn.textContent = 'Light';
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (toggleBtn) toggleBtn.textContent = 'Dark';
+            }
+        }
+
+        const initial = stored || (prefersDark ? 'dark' : 'light');
+        applyTheme(initial);
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                applyTheme(next);
+                localStorage.setItem('sd-theme', next);
+            });
+        }
+    })();
+</script>
 </body>
 </html>
 
