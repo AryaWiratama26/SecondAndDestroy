@@ -17,16 +17,64 @@
             <div class="d-flex flex-column gap-2 align-items-stretch align-items-md-end">
                 <div class="d-flex gap-2 w-100">
                     <a href="{{ route('pelanggan.export.excel') }}" class="btn btn-outline-success flex-fill" style="font-size: 0.875rem; padding: 0.5rem 1rem;">
-                        📊 Excel
+                        Export Excel
                     </a>
                     <a href="{{ route('pelanggan.export.pdf') }}" class="btn btn-outline-secondary flex-fill" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank">
-                        📄 PDF
+                        Export PDF
                     </a>
                 </div>
                 <a href="{{ route('pelanggan.create') }}" class="btn sd-btn-primary w-100" style="padding: 0.625rem 1.5rem; font-size: 0.875rem;">
                     + Tambah Pelanggan
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- Pencarian & Filter -->
+    <div class="sd-card mb-3">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
+                <div>
+                    <h6 class="mb-0 fw-semibold" style="font-size: 0.95rem;">Pencarian & Filter</h6>
+                    <small class="text-muted">Temukan data pelanggan sesuai kriteria</small>
+                </div>
+                @if(request()->hasAny(['search', 'jenis_barang', 'min_belanja', 'max_belanja']))
+                    <a href="{{ route('pelanggan.index') }}" class="btn btn-outline-secondary btn-sm">Reset Filter</a>
+                @endif
+            </div>
+            <form method="GET" action="{{ route('pelanggan.index') }}" class="row g-3 align-items-end">
+                <div class="col-12 col-lg-4">
+                    <label class="form-label small text-muted mb-1">Pencarian</label>
+                    <input type="text" name="search" class="form-control" placeholder="Cari nama atau jenis barang..."
+                           value="{{ request('search') }}">
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label class="form-label small text-muted mb-1">Jenis Barang</label>
+                    <select name="jenis_barang" class="form-select">
+                        <option value="">Semua Jenis</option>
+                        @if(isset($jenisBarangList))
+                            @foreach($jenisBarangList as $jenis)
+                                <option value="{{ $jenis }}" {{ request('jenis_barang') == $jenis ? 'selected' : '' }}>
+                                    {{ $jenis }}
+                                </option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small text-muted mb-1">Min. Belanja</label>
+                    <input type="number" name="min_belanja" class="form-control" min="0" placeholder="0"
+                           value="{{ request('min_belanja') }}">
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small text-muted mb-1">Max. Belanja</label>
+                    <input type="number" name="max_belanja" class="form-control" min="0" placeholder="Tidak terbatas"
+                           value="{{ request('max_belanja') }}">
+                </div>
+                <div class="col-12 col-md-12 col-lg-1 d-flex justify-content-md-start justify-content-lg-end">
+                    <button type="submit" class="btn sd-btn-primary w-100" style="min-height: 42px;">Cari</button>
+                </div>
+            </form>
         </div>
     </div>
 

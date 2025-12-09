@@ -10,27 +10,48 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PelangganController extends Controller
 {
-    /**
-     * Tampilkan dashboard / daftar pelanggan.
-     */
-    public function index()
+    
+    public function index(Request $request)
     {
-        $pelanggans = Pelanggan::latest()->paginate(10);
+        $query = Pelanggan::query();
 
-        return view('pelanggan.index', compact('pelanggans'));
+        
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('jenis_barang', 'like', '%' . $search . '%');
+            });
+        }
+
+        
+        if ($request->filled('jenis_barang')) {
+            $query->where('jenis_barang', $request->input('jenis_barang'));
+        }
+
+        
+        if ($request->filled('min_belanja')) {
+            $query->where('total_belanja', '>=', $request->input('min_belanja'));
+        }
+        if ($request->filled('max_belanja')) {
+            $query->where('total_belanja', '<=', $request->input('max_belanja'));
+        }
+
+        $pelanggans = $query->latest()->paginate(10)->withQueryString();
+
+        
+        $jenisBarangList = Pelanggan::select('jenis_barang')->distinct()->orderBy('jenis_barang')->pluck('jenis_barang');
+
+        return view('pelanggan.index', compact('pelanggans', 'jenisBarangList'));
     }
 
-    /**
-     * Tampilkan form tambah pelanggan.
-     */
+    
     public function create()
     {
         return view('pelanggan.create');
     }
 
-    /**
-     * Simpan data pelanggan baru.
-     */
+    
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -46,17 +67,13 @@ class PelangganController extends Controller
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan.');
     }
 
-    /**
-     * Tampilkan form edit pelanggan.
-     */
+    
     public function edit(Pelanggan $pelanggan)
     {
         return view('pelanggan.edit', compact('pelanggan'));
     }
 
-    /**
-     * Update data pelanggan.
-     */
+    
     public function update(Request $request, Pelanggan $pelanggan)
     {
         $data = $request->validate([
@@ -72,9 +89,7 @@ class PelangganController extends Controller
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil diperbarui.');
     }
 
-    /**
-     * Hapus data pelanggan.
-     */
+    
     public function destroy(Pelanggan $pelanggan)
     {
         $pelanggan->delete();
@@ -82,9 +97,7 @@ class PelangganController extends Controller
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil dihapus.');
     }
 
-    /**
-     * Export dashboard pelanggan ke PDF.
-     */
+    
     public function exportPdf()
     {
         $pelanggans = Pelanggan::latest()->get();
@@ -100,9 +113,7 @@ class PelangganController extends Controller
         return $pdf->download('dashboard-pelanggan-second-and-destroy-' . date('Y-m-d') . '.pdf');
     }
 
-    /**
-     * Export dashboard pelanggan ke Excel.
-     */
+    
     public function exportExcel()
     {
         $filename = 'dashboard-pelanggan-second-and-destroy-' . date('Y-m-d') . '.xlsx';
