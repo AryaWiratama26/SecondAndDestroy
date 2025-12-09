@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ManualEncryption;
 
 class Pelanggan extends Model
 {
-    use HasFactory;
+    use HasFactory, ManualEncryption;
 
     protected $table = 'pelanggans';
 
@@ -23,10 +24,32 @@ class Pelanggan extends Model
     protected function casts(): array
     {
         return [
-            'wa' => 'encrypted',
-            'alamat' => 'encrypted',
             'total_belanja' => 'decimal:2',
         ];
+    }
+
+    
+    public function setWaAttribute($value)
+    {
+        $this->attributes['wa'] = $this->encryptData($value);
+    }
+
+    
+    public function getWaAttribute($value)
+    {
+        return $this->decryptData($value);
+    }
+
+    
+    public function setAlamatAttribute($value)
+    {
+        $this->attributes['alamat'] = $this->encryptData($value);
+    }
+
+    
+    public function getAlamatAttribute($value)
+    {
+        return $this->decryptData($value);
     }
 }
 
