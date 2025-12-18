@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CryptoTestController;
 use App\Http\Controllers\PelangganController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+//testing
+Route::get('/test/avalanche', [CryptoTestController::class, 'avalancheTest']);
 
 // Auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
