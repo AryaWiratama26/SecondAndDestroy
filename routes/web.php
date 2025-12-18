@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvalancheController;
 use App\Http\Controllers\PelangganController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('pelanggan', PelangganController::class)->except(['show']);
     Route::get('/pelanggan/export/pdf', [PelangganController::class, 'exportPdf'])->name('pelanggan.export.pdf');
     Route::get('/pelanggan/export/excel', [PelangganController::class, 'exportExcel'])->name('pelanggan.export.excel');
+
+    // Avalanche Effect Testing
+    Route::get('/avalanche', [AvalancheController::class, 'index'])->name('avalanche.index');
+    Route::post('/avalanche', [AvalancheController::class, 'test'])->name('avalanche.test');
+    Route::post('/avalanche/statistic', [AvalancheController::class, 'statisticTest'])->name('avalanche.statistic');
+    Route::get('/avalanche/export', [AvalancheController::class, 'exportExcel'])->name('avalanche.export');
 });
+
