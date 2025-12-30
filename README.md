@@ -12,6 +12,6 @@ Website pendataan pelanggan Toko `Second And Destroy` dengan enkripsi AES-CBC
 </div>
 
 ## Jurnal Link
-[Click Here](https://jurnal.secondanddestroy.site/)
+[https://jurnal.secondanddestroy.site/](https://jurnal.secondanddestroy.site/)
 
 Made with love by Arya Wiratama, Farel Aryaduta Daniwiswara dan Ainun Dwi Permana
